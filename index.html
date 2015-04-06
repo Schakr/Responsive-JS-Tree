@@ -4,6 +4,110 @@
 <link rel="stylesheet" type="text/css" href="main.css">
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
 </head>
+<script>
+function LinkedList() {
+	 LinkedList.makeNode = function() { 
+		return {data: null, next: null}; 
+	 }; 
+	 
+	 this.start = null; 
+	 this.end = null; 
+	 
+	 this.add = function(data) { 
+		  if (this.start === null) { 
+			   this.start = LinkedList.makeNode(); 
+			   this.end = this.start; 
+		  } else {
+			   this.end.next = LinkedList.makeNode(); 
+			   this.end = this.end.next; 
+		  } ; 
+		  this.end.data = data; 
+	 }; 
+
+	 this.delete = function(data) { 
+		  var current = this.start; 
+		  var previous = this.start; 
+		  while (current !== null) { 
+			   if (data === current.data) { 
+					if (current === this.start) { 
+						 this.start = current.next; 
+						 return; 
+					} 
+					if (current === this.end) 
+									  this.end = previous;
+					previous.next = current.next; return; 
+				}
+				previous = current; 
+				current = current.next; 
+		   }
+	 }; 
+
+	 this.insertAsFirst = function(d) { 
+		  var temp = LinkedList.makeNode(); 
+		  temp.next = this.start; 
+		  this.start = temp; 
+		  temp.data = d; 
+	 }; 
+
+	 this.insertAfter = function(t, d) {
+		  var current = this.start; 
+		  while (current !== null) { 
+			   if (current.data === t) { 
+					var temp = LinkedList.makeNode();
+					temp.data = d; 
+					temp.next = current.next; 
+					if (current === this.end) this.end = temp;
+					current.next = temp; 
+					return; 
+			   } 
+			   current = current.next; 
+		   }
+	  };
+
+	  this.item = function(i) { 
+		   var current = this.start; 
+		   while (current !== null) { 
+				i--; 
+				if (i === 0) return current; 
+				current = current.next; 
+		   } 
+		   return null; 
+	  }; 
+
+	 this.each = function(f) {
+		  var current = this.start;
+		  while (current !== null) { 
+			   f(current); 
+			   current = current.next; 
+		  } 
+	 };
+} 
+
+var list1=new LinkedList(); 
+list1.add(["Parent1","Link to Parent1"]);
+list1.add(["Child1","Link to Child1"]);
+list1.add(["Child2","Link to Child2"]);
+list1.add(["Child3","Link to Child3"]);
+list1.add(["Child4","Link to Child4"]);
+
+var list2=new LinkedList(); 
+list2.add(["Parent2","Link to Parent2"]);
+list2.add(["Child1","Link to Child1"]);
+list2.add(["Child2","Link to Child2"]);
+list2.add(["Child3","Link to Child3"]);
+list2.add(["Child4","Link to Child4"]);
+
+var tree = [list1, list2];
+
+for (var i = 0; i < tree.length; i++) {
+    tree[i].each(function(item) { 
+		alert(item.data); 
+	});
+}
+
+
+</script>
+
 
 <div class="tree well">
     <ul>
